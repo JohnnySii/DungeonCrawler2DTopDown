@@ -6,9 +6,10 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float moveSpeed = 5f;
+    public float walkSpeed = 5f;
     public Rigidbody2D rigidBody;
     public PlayerInputActions playerControls;
+    public Animator animator;
 
     Vector2 moveDirection = Vector2.zero;
     private InputAction move;
@@ -48,11 +49,28 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+    float horizontalMove = 0f;
+    float verticalMove = 0f;
+
     void Update()
     {
         // input
 
+        horizontalMove = Input.GetAxisRaw("Horizontal") * walkSpeed;
+
+        verticalMove = Input.GetAxisRaw("Vertical") * walkSpeed;
+
+
+
+        animator.SetFloat("Speed", horizontalMove);
+
+        animator.SetFloat("VerticalSpeed", verticalMove);
+
+
+
+
         moveDirection = move.ReadValue<Vector2>();
+
 
     }
 
@@ -60,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Movement
 
-        rigidBody.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        rigidBody.velocity = new Vector2(moveDirection.x * walkSpeed, moveDirection.y * walkSpeed);
 
 
     }
