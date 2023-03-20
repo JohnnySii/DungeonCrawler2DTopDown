@@ -13,9 +13,9 @@ public class EnemyAIBrain : MonoBehaviour, IAgentInput
     public AIState CurrentState { get; private set; }
 
     [field: SerializeField]
-    public UnityEvent OnFireButtonPressed { get; set; }
+    public UnityEvent OnShootButtonPressed { get; set; }
     [field: SerializeField]
-    public UnityEvent OnFireButtonReleased { get; set; }
+    public UnityEvent OnShootButtonReleased { get; set; }
     [field: SerializeField]
     public UnityEvent<Vector2> OnMovementKeyPressed { get; set; }
     [field: SerializeField]
@@ -42,7 +42,7 @@ public class EnemyAIBrain : MonoBehaviour, IAgentInput
 
     public void Attack()
     {
-        OnFireButtonPressed?.Invoke();
+        OnShootButtonPressed?.Invoke();
     }
 
     public void Move(Vector2 movementDirection, Vector2 targetPosition)
