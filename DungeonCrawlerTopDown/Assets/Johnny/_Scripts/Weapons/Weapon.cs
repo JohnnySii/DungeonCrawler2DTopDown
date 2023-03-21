@@ -119,7 +119,7 @@ public class Weapon : MonoBehaviour
     private Quaternion CalculateAngle(GameObject endOfGun)
     {
         float spread = Random.Range(-weaponData.SpreadAngle, weaponData.SpreadAngle);
-        Quaternion bulletSpreadRotation = Quaternion.Euler(new Vector3(0, 0, spread));
+        Quaternion bulletSpreadRotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
         return endOfGun.transform.rotation * bulletSpreadRotation;
     }

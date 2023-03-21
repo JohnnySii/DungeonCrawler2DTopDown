@@ -5,15 +5,54 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour, IAgent, IHittable
 {
-    [field: SerializeField]
-    public int Health { get; set; }
+    [SerializeField]
+    private int maxHealth;
+
+    private int health;
+    public int Health
+    {
+        get => health;
+        set
+        {
+            health = Mathf.Clamp(value, 0, maxHealth);
+            uiHealth.UpdateUI(health);
+        }
+    }
+
+    private int xp;
+    private int levelUpXp = 5;
+
+    public Enemy enemy;
+
+    public int Xp 
+    { 
+        get => xp;
+        set
+        {
+            xp = Mathf.Clamp(value, 0, levelUpXp);
+
+        } 
+    }
+
+
+
 
     private bool dead = false;
+
+    [field: SerializeField]
+    public UIHealth uiHealth { get; set; }
 
     [field: SerializeField]
     public UnityEvent OnDie { get; set; }
     [field: SerializeField]
     public UnityEvent OnGetHit { get; set; }
+
+    private void Start()
+    {
+        Health = maxHealth;
+        uiHealth.Initialize(Health);
+        enemy = FindObjectOfType(typeof(Enemy)) as Enemy;
+    }
 
     public void GetHit(int damage, GameObject damageDealer)
     {
@@ -37,4 +76,35 @@ public class Player : MonoBehaviour, IAgent, IHittable
         yield return new WaitForSeconds(0.2f);
         Destroy(gameObject);
     }
+
+    private void FixedUpdate()
+    {
+        LevelUp();
+    }
+    public void LevelUp()
+    {
+
+        if (xp >= levelUpXp)
+        {
+            Debug.Log("Level up");
+
+        }
+        if (enemy.Health <= 0)
+        {
+            Debug.Log("Killed enemy and gained xp");
+            xp++;
+        }
+        Debug.Log("You have " + xp + "/" + levelUpXp);
+    }
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+    //    {
+    //        LevelUp();
+    //    }
+
+    //    //Destroy(gameObject);
+    //}
+
 }
