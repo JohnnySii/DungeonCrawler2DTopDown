@@ -8,7 +8,9 @@ public class Player : MonoBehaviour, IAgent, IHittable
     [SerializeField]
     private int maxHealth;
 
+
     private int health;
+    private int damage;
     public int Health
     {
         get => health;
@@ -21,8 +23,17 @@ public class Player : MonoBehaviour, IAgent, IHittable
 
     private int xp;
     private int levelUpXp = 5;
+    private int currentLevel = 1;
+
+    public int doDamage = 1;
 
     public Enemy enemy;
+
+    [field: SerializeField]
+    public UnityEvent<int> OnLevelUp { get; set; }
+
+    [SerializeField]
+    private UILevel uiLevel = null;
 
     public int Xp 
     { 
@@ -52,6 +63,9 @@ public class Player : MonoBehaviour, IAgent, IHittable
         Health = maxHealth;
         uiHealth.Initialize(Health);
         enemy = FindObjectOfType(typeof(Enemy)) as Enemy;
+
+        OnLevelUp.AddListener(uiLevel.UpdateLevelText);
+        uiLevel.UpdateLevelText(currentLevel);
     }
 
     public void GetHit(int damage, GameObject damageDealer)
@@ -80,16 +94,24 @@ public class Player : MonoBehaviour, IAgent, IHittable
     public void GainXP()
     {
 
-        if (xp >= levelUpXp)
+        if (Xp >= levelUpXp)
         {
-            Debug.Log("Level up");
-
+            currentLevel++;
+            Debug.Log("You levelled up");
+            Debug.Log("Level: " + currentLevel);
+            Xp = 0;
+            doDamage = currentLevel * 2;
         }
         Debug.Log("Killed enemy and gained xp");
 
         Xp++;
         Debug.Log("You have " + Xp + "/" + levelUpXp);
+
+        OnLevelUp?.Invoke(currentLevel);
+
     }
+
+
 
     //private void OnTriggerEnter2D(Collider2D collision)
     //{

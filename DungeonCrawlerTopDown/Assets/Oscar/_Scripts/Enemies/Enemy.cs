@@ -50,8 +50,10 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
     {
         if(dead == false)
         {
-            Health--;
+
+            Health -= player.doDamage;
             OnGetHit?.Invoke();
+            Debug.Log("Enemy took " + player.doDamage + " damage");
             if (Health <= 0)
             {
                 dead = true;
@@ -60,6 +62,7 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
                 //Player gains xp when enemy dies
                 player.GainXP();
             }
+
         }
         
     }
