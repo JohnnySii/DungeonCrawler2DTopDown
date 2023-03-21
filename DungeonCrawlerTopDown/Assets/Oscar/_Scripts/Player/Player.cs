@@ -34,7 +34,7 @@ public class Player : MonoBehaviour, IAgent, IHittable
         } 
     }
 
-
+    public bool LevelUp { get; set; }
 
 
     private bool dead = false;
@@ -77,11 +77,7 @@ public class Player : MonoBehaviour, IAgent, IHittable
         Destroy(gameObject);
     }
 
-    private void FixedUpdate()
-    {
-        LevelUp();
-    }
-    public void LevelUp()
+    public void GainXP()
     {
 
         if (xp >= levelUpXp)
@@ -89,12 +85,10 @@ public class Player : MonoBehaviour, IAgent, IHittable
             Debug.Log("Level up");
 
         }
-        if (enemy.Health <= 0)
-        {
-            Debug.Log("Killed enemy and gained xp");
-            xp++;
-        }
-        Debug.Log("You have " + xp + "/" + levelUpXp);
+        Debug.Log("Killed enemy and gained xp");
+
+        Xp++;
+        Debug.Log("You have " + Xp + "/" + levelUpXp);
     }
 
     //private void OnTriggerEnter2D(Collider2D collision)

@@ -22,6 +22,17 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
     [field: SerializeField]
     public UnityEvent OnDie { get; set; }
 
+    public Player player;
+
+    public bool IsDead 
+    { 
+        get => dead; 
+        set
+        {
+
+        }
+    }
+
     private void Awake()
     {
         if(enemyAttack == null)
@@ -32,6 +43,7 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
     private void Start()
     {
         Health = EnemyData.MaxHealth;
+        player = FindAnyObjectByType(typeof(Player)) as Player;
     }
 
     public void GetHit(int damage, GameObject damageDealer)
@@ -45,7 +57,8 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
                 dead = true;
                 OnDie?.Invoke();
                 StartCoroutine(WaitToDie());
-
+                //Player gains xp when enemy dies
+                player.GainXP();
             }
         }
         
