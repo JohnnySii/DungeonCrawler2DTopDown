@@ -8,7 +8,7 @@ public class Player : MonoBehaviour, IAgent, IHittable
     [SerializeField]
     private int maxHealth;
 
-
+    public bool LeveledUp { get; set; }
     private int health;
     private int damage;
     public int Health
@@ -23,7 +23,8 @@ public class Player : MonoBehaviour, IAgent, IHittable
 
     private int xp;
     private int levelUpXp = 5;
-    private int currentLevel = 1;
+    //private int currentLevel = 1;
+    public int currentLevel { get; set; } = 1;
 
     public int doDamage = 1;
 
@@ -58,11 +59,16 @@ public class Player : MonoBehaviour, IAgent, IHittable
     [field: SerializeField]
     public UnityEvent OnGetHit { get; set; }
 
+    public UiLevelUpgradeChoice uiLevelUpgradeChoice;
+
     private void Start()
     {
         Health = maxHealth;
         uiHealth.Initialize(Health);
         enemy = FindObjectOfType(typeof(Enemy)) as Enemy;
+
+        uiLevelUpgradeChoice = FindAnyObjectByType(typeof(UiLevelUpgradeChoice)) as UiLevelUpgradeChoice;
+
 
         OnLevelUp.AddListener(uiLevel.UpdateLevelText);
         uiLevel.UpdateLevelText(currentLevel);
@@ -97,6 +103,7 @@ public class Player : MonoBehaviour, IAgent, IHittable
         if (Xp >= levelUpXp)
         {
             currentLevel++;
+            LeveledUp = true;
             Debug.Log("You levelled up");
             Debug.Log("Level: " + currentLevel);
             Xp = 0;
@@ -111,6 +118,14 @@ public class Player : MonoBehaviour, IAgent, IHittable
 
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+
+            //SceneManager.LoadScene("LevelUpReward");
+        }
+    }
 
 
     //private void OnTriggerEnter2D(Collider2D collision)

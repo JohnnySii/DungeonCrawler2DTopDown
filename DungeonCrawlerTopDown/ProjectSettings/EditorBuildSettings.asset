@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Johnny/Scenes/LevelUpReward.unity
+    guid: ba96127f946f0fb4eadea6151f261065
+  - enabled: 1
+    path: Assets/Johnny/Scenes/JohnnyTest.unity
+    guid: 6d32d1b3122963b4f92a63c84500d973
   m_configObjects: {}
