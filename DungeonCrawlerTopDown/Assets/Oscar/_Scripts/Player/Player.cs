@@ -125,7 +125,6 @@ public class Player : MonoBehaviour, IAgent, IHittable
         Debug.Log("You have " + Xp + "/" + levelUpXp);
 
         OnLevelUp?.Invoke(currentLevel);
-        OnAddDamage?.Invoke(doDamage);
 
     }
 

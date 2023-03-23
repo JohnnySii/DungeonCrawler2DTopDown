@@ -16,6 +16,8 @@ public class UiLevelUpgradeChoice : MonoBehaviour
 
     Player player;
 
+    public int damageOpgrade = 0;
+
     private void Start()
     {
         player = FindAnyObjectByType(typeof(Player)) as Player;
@@ -38,10 +40,12 @@ public class UiLevelUpgradeChoice : MonoBehaviour
     {
         OptionChosen = 1;
 
+        damageOpgrade++;
+
         levelUpRewardMenu.SetActive(false);
         Debug.Log("Damage now: " + player.doDamage);
 
-        player.doDamage += 100 * player.currentLevel;
+        player.doDamage += 100 * damageOpgrade;
 
         player.OnAddDamage?.Invoke(player.doDamage);
 
