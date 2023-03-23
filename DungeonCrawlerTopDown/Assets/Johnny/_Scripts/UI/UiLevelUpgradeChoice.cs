@@ -43,6 +43,9 @@ public class UiLevelUpgradeChoice : MonoBehaviour
 
         player.doDamage += 100 * player.currentLevel;
 
+        player.OnAddDamage?.Invoke(player.doDamage);
+
+
         Debug.Log("Damage now: " + player.doDamage);
 
         Time.timeScale = 1f;

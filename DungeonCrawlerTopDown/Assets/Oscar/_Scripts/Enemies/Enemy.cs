@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
     public EnemyDataSO EnemyData { get; set; }
 
     [field: SerializeField]
-    public int Health { get; private set; } = 2;
+    public int Health { get; private set; } = 50;
 
     [field: SerializeField]
     public EnemyAttack enemyAttack { get; set; }

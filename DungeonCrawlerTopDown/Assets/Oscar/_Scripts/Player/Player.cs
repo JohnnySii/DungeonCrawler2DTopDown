@@ -26,15 +26,21 @@ public class Player : MonoBehaviour, IAgent, IHittable
     //private int currentLevel = 1;
     public int currentLevel { get; set; } = 1;
 
-    public int doDamage = 1;
+    public int doDamage = 5;
 
     public Enemy enemy;
 
     [field: SerializeField]
     public UnityEvent<int> OnLevelUp { get; set; }
+    [field: SerializeField]
+    public UnityEvent<int> OnAddDamage { get; set; }
+
 
     [SerializeField]
     private UILevel uiLevel = null;
+
+    [SerializeField]
+    private UIStats uiStats = null;
 
     public int Xp 
     { 
@@ -72,6 +78,10 @@ public class Player : MonoBehaviour, IAgent, IHittable
 
         OnLevelUp.AddListener(uiLevel.UpdateLevelText);
         uiLevel.UpdateLevelText(currentLevel);
+
+        OnAddDamage.AddListener(uiStats.UpdateStatsText);
+        uiStats.UpdateStatsText(doDamage);
+
     }
 
     public void GetHit(int damage, GameObject damageDealer)
@@ -115,6 +125,7 @@ public class Player : MonoBehaviour, IAgent, IHittable
         Debug.Log("You have " + Xp + "/" + levelUpXp);
 
         OnLevelUp?.Invoke(currentLevel);
+        OnAddDamage?.Invoke(doDamage);
 
     }
 
