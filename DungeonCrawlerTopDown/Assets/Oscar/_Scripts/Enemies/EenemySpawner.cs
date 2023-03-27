@@ -15,6 +15,25 @@ public class EenemySpawner : MonoBehaviour
     [SerializeField]
     private float minDelay = 0.8f, maxDelay = 1.5f;
 
+    public EenemySpawner enemySpawner;
+
+    public int Count 
+    { 
+        get => count; 
+    }
+
+    //public int enemiesLeft;
+
+    //public int EnemiesLeft
+    //{
+    //    get => enemiesLeft;
+    //    set
+    //    {
+    //        enemiesLeft = EnemiesLeft;
+    //    }
+    //}
+    public int EnemiesLeft { get; set; }
+
     IEnumerator SpawnCoroutine()
     {
         while(count > 0)
@@ -47,5 +66,11 @@ public class EenemySpawner : MonoBehaviour
             }
         }
         StartCoroutine(SpawnCoroutine());
+
+        enemySpawner = FindObjectOfType(typeof(EenemySpawner)) as EenemySpawner;
+        if (enemySpawner != null)
+        {
+            EnemiesLeft = enemySpawner.Count * spawnPoints.Count;
+        }
     }
 }

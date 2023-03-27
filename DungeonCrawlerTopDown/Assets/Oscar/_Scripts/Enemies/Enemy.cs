@@ -24,6 +24,12 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
 
     public Player player;
 
+    public EenemySpawner enemySpawner;
+
+    public bool LevelCleared { get; set; } = false;
+
+
+
     public bool IsDead 
     { 
         get => dead; 
@@ -44,6 +50,8 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
     {
         Health = EnemyData.MaxHealth;
         player = FindAnyObjectByType(typeof(Player)) as Player;
+        enemySpawner = FindObjectOfType(typeof(EenemySpawner)) as EenemySpawner;
+
     }
 
     public void GetHit(int damage, GameObject damageDealer)
@@ -61,8 +69,18 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
                 StartCoroutine(WaitToDie());
                 //Player gains xp when enemy dies
                 player.GainXP();
-            }
+                enemySpawner.EnemiesLeft -= 1;
+                Debug.Log("Enemies left: " + enemySpawner.EnemiesLeft);
 
+                if (enemySpawner.EnemiesLeft <= 0)
+                {
+                    //Reward with 0-3 stars
+                    LevelCleared = true;
+                    Debug.Log("You have cleared the level");
+
+                }
+                
+            }
         }
         
     }
