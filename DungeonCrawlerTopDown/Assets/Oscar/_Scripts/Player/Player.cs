@@ -138,14 +138,26 @@ public class Player : MonoBehaviour, IAgent, IHittable
     }
 
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-    //    {
-    //        LevelUp();
-    //    }
-
-    //    //Destroy(gameObject);
-    //}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Resource"))
+        {
+            var resource = collision.gameObject.GetComponent<Resource>();
+            if (resource != null)
+            {
+                switch (resource.ResourceData.ResourceType)
+                {
+                    case ResourceTypeEnum.Health:
+                        if(Health >= maxHealth)
+                        {
+                            return;
+                        }
+                        Health += resource.ResourceData.GetAmount();
+                        resource.PickUpResource();
+                        break;
+                }
+            }
+        }
+    }
 
 }
