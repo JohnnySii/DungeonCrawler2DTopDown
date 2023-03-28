@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class UILevelCleared : MonoBehaviour
 {
@@ -21,6 +24,8 @@ public class UILevelCleared : MonoBehaviour
     {
         player = FindAnyObjectByType(typeof(Player)) as Player;
         timer = FindAnyObjectByType(typeof(Timer)) as Timer;
+
+
     }
 
     private void Update()
@@ -40,7 +45,18 @@ public class UILevelCleared : MonoBehaviour
 
             text.SetText("Level cleared in: " + timer.timerAdd + " seconds\n" +
                 "you got " + player.Coins + "/" + player.Coins + " coins");
+
+
+
         }
+
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 0f;
+        SceneManager.LoadScene("JohnnyTest");
+
 
     }
 }

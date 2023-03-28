@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class Timer : MonoBehaviour
 {
@@ -33,6 +36,13 @@ public class Timer : MonoBehaviour
 
     public UILevelCleared uiLvlClear;
 
+    [field: SerializeField]
+    public UnityEvent<int> OnAddCoins { get; set; }
+
+    [SerializeField]
+    private UiCoins uiCoins = null;
+
+
     void Start()
     {
         timerOn = true;
@@ -40,6 +50,7 @@ public class Timer : MonoBehaviour
         enemyPrefab = FindObjectOfType(typeof(Enemy)) as Enemy;
         player = FindAnyObjectByType(typeof(Player)) as Player;
         uiLvlClear = FindAnyObjectByType(typeof(UILevelCleared)) as UILevelCleared;
+
     }
 
     void Update()
@@ -164,5 +175,16 @@ public class Timer : MonoBehaviour
             player.UpdateLevelClearText = true;
         }
     }
+
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+        levelCleared.SetActive(false);
+
+        OnAddCoins.AddListener(uiCoins.UpdateCoinText);
+        uiCoins.UpdateCoinText(player.Coins);
+
+    }
+
 
 }

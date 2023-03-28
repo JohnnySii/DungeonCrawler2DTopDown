@@ -36,12 +36,17 @@ public class Player : MonoBehaviour, IAgent, IHittable
     [field: SerializeField]
     public UnityEvent<int> OnAddDamage { get; set; }
 
+    [field: SerializeField]
+    public UnityEvent<int> OnAddCoins { get; set; }
+
 
     [SerializeField]
     private UILevel uiLevel = null;
 
     [SerializeField]
     private UIStats uiStats = null;
+    [SerializeField]
+    private UiCoins uiCoins = null;
 
     public int Xp 
     { 
@@ -85,6 +90,9 @@ public class Player : MonoBehaviour, IAgent, IHittable
 
         OnAddDamage.AddListener(uiStats.UpdateStatsText);
         uiStats.UpdateStatsText(doDamage);
+
+        OnAddCoins.AddListener(uiCoins.UpdateCoinText);
+        uiCoins.UpdateCoinText(Coins);
 
     }
 
