@@ -12,6 +12,11 @@ public class Timer : MonoBehaviour
     private TextMeshProUGUI text = null;
 
     [SerializeField]
+    private TextMeshProUGUI levelClearText = null;
+    [SerializeField] GameObject levelCleared;
+
+
+    [SerializeField]
     private Enemy enemyPrefab = null;
 
     public EenemySpawner enemySpawner;
@@ -22,6 +27,11 @@ public class Timer : MonoBehaviour
 
     public int enemiesLeft;
 
+    public int stars = 0;
+    public int maxStars = 3;
+
+
+    public UILevelCleared uiLvlClear;
 
     void Start()
     {
@@ -29,13 +39,7 @@ public class Timer : MonoBehaviour
         enemySpawner = FindObjectOfType(typeof(EenemySpawner)) as EenemySpawner;
         enemyPrefab = FindObjectOfType(typeof(Enemy)) as Enemy;
         player = FindAnyObjectByType(typeof(Player)) as Player;
-
-        allEnemies = new List<Enemy>();
-        for (int i = 0; i < enemySpawner.Count; i++)
-        {
-            allEnemies.Add(enemyPrefab);
-        }
-        enemiesLeft = enemySpawner.Count;
+        uiLvlClear = FindAnyObjectByType(typeof(UILevelCleared)) as UILevelCleared;
     }
 
     void Update()
@@ -74,22 +78,9 @@ public class Timer : MonoBehaviour
         //    Debug.Log(enemySpawner.Count);
         //}
 
-        if (timerAdd >= 10 && timerAdd < 20)
-        {
+        CheckLevelClear();
 
-        }
-        else if (timerAdd >= 20 && timerAdd < 30)
-        {
 
-        }
-        else if (timerAdd >= 30 && timerAdd < 40)
-        {
-
-        }
-        else if (timerAdd >= 40 && timerAdd < 60)
-        {
-
-        }
 
     }
 
@@ -104,5 +95,74 @@ public class Timer : MonoBehaviour
 
     }
 
+    public void CheckLevelClear()
+    {
+        if (player.LevelCleared == true)
+        {
+            if (timerAdd >= 0 && timerAdd < 10)
+            {
+                Debug.Log("You have cleared the level in: " + timerAdd + " seconds");
+                stars = 3;
+                player.Coins += 100;
+                Debug.Log("You achieved " + stars + "/" + maxStars + " stars and got " + player.Coins + " coins");
+
+
+                levelCleared.SetActive(true);
+                Time.timeScale = 0f;
+
+                levelClearText.SetText("Level cleared in: " + timerAdd + " seconds\n" + 
+                    " You achieved " + stars + "/" + maxStars + " stars " + 
+                    "\nYou got " + player.Coins + " coins");
+
+            }
+            else if (timerAdd >= 10 && timerAdd < 15)
+            {
+                Debug.Log("You have cleared the level in: " + timerAdd + " seconds");
+                stars = 2;
+                player.Coins += 50;
+                Debug.Log("You achieved " + stars + "/" + maxStars + " stars and got " + player.Coins + " coins");
+
+                levelCleared.SetActive(true);
+                Time.timeScale = 0f;
+
+                levelClearText.SetText("Level cleared in: " + timerAdd + " seconds\n" +
+                    " You achieved " + stars + "/" + maxStars + " stars " +
+                    "\nYou got " + player.Coins + " coins");
+
+            }
+            else if (timerAdd >= 15 && timerAdd < 20)
+            {
+                Debug.Log("You have cleared the level in: " + timerAdd + " seconds");
+                stars = 1;
+                player.Coins += 25;
+                Debug.Log("You achieved " + stars + "/" + maxStars + " stars and got " + player.Coins + " coins");
+
+                levelCleared.SetActive(true);
+                Time.timeScale = 0f;
+
+                levelClearText.SetText("Level cleared in: " + timerAdd + " seconds\n" +
+                    " You achieved " + stars + "/" + maxStars + " stars " +
+                    "\nYou got " + player.Coins + " coins");
+
+            }
+            else if (timerAdd >= 20 && timerAdd < 25)
+            {
+                Debug.Log("You have cleared the level in: " + timerAdd + " seconds");
+                stars = 0;
+                player.Coins += 0;
+                Debug.Log("You achieved " + stars + "/" + maxStars + " stars and got " + player.Coins + " coins");
+
+                levelCleared.SetActive(true);
+                Time.timeScale = 0f;
+
+                levelClearText.SetText("Level cleared in: " + timerAdd + " seconds\n" +
+                    " You achieved " + stars + "/" + maxStars + " stars " +
+                    "\nYou got " + player.Coins + " coins");
+            }
+            timerOn = false;
+            player.LevelCleared = false;
+            player.UpdateLevelClearText = true;
+        }
+    }
 
 }

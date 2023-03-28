@@ -26,8 +26,6 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
 
     public EenemySpawner enemySpawner;
 
-    public bool LevelCleared { get; set; } = false;
-
 
 
     public bool IsDead 
@@ -75,7 +73,7 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
                 if (enemySpawner.EnemiesLeft <= 0)
                 {
                     //Reward with 0-3 stars
-                    LevelCleared = true;
+                    player.LevelCleared = true;
                     Debug.Log("You have cleared the level");
 
                 }

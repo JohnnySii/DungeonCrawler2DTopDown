@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, IAgent, IHittable
     public bool LeveledUp { get; set; }
     private int health;
     private int damage;
+    public bool UpdateLevelClearText { get; set; }
     public int Health
     {
         get => health;
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour, IAgent, IHittable
     }
 
     private int xp;
-    private int levelUpXp = 5;
+    private int levelUpXp = 10;
     //private int currentLevel = 1;
     public int currentLevel { get; set; } = 1;
 
@@ -54,8 +55,10 @@ public class Player : MonoBehaviour, IAgent, IHittable
 
     public bool LevelUp { get; set; }
 
-
     private bool dead = false;
+    public bool LevelCleared { get; set; } = false;
+
+    public int Coins { get; set; }
 
     [field: SerializeField]
     public UIHealth uiHealth { get; set; }
@@ -66,6 +69,7 @@ public class Player : MonoBehaviour, IAgent, IHittable
     public UnityEvent OnGetHit { get; set; }
 
     public UiLevelUpgradeChoice uiLevelUpgradeChoice;
+
 
     private void Start()
     {

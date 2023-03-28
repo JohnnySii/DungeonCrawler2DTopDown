@@ -15,8 +15,6 @@ public class EenemySpawner : MonoBehaviour
     [SerializeField]
     private float minDelay = 0.8f, maxDelay = 1.5f;
 
-    public EenemySpawner enemySpawner;
-
     public int Count 
     { 
         get => count; 
@@ -67,10 +65,6 @@ public class EenemySpawner : MonoBehaviour
         }
         StartCoroutine(SpawnCoroutine());
 
-        enemySpawner = FindObjectOfType(typeof(EenemySpawner)) as EenemySpawner;
-        if (enemySpawner != null)
-        {
-            EnemiesLeft = enemySpawner.Count * spawnPoints.Count;
-        }
+        EnemiesLeft = spawnPoints.Count + Count + 1;
     }
 }
