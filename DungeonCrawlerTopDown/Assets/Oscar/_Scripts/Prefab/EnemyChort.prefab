@@ -448,6 +448,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   player: {fileID: 0}
+  enemySpawner: {fileID: 0}
 --- !u!114 &3600160208513994094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,7 +797,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 69d2370c3670d84488bb4dbb1b3ecaba, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -935,7 +936,7 @@ MonoBehaviour:
   - {x: -0.35417277, y: -0.45709747, z: 0}
   m_ShapePathHash: 1265405253
   m_Mesh: {fileID: 0}
-  m_InstanceId: -8872
+  m_InstanceId: 42852
 --- !u!1 &3600160209597018816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,7 +1046,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 0.4
   Loop: 0
   Mute: 0
