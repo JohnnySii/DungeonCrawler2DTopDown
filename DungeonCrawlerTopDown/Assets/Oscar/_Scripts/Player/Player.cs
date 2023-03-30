@@ -23,7 +23,7 @@ public class Player : MonoBehaviour, IAgent, IHittable
     }
 
     private int xp;
-    private int levelUpXp = 10;
+    private int levelUpXp = 3;
     //private int currentLevel = 1;
     public int currentLevel { get; set; } = 1;
 

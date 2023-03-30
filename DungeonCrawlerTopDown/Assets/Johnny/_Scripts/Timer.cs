@@ -80,7 +80,6 @@ public class Timer : MonoBehaviour
         {
             timerAdd += Time.deltaTime;
             UpdateTimer(timerAdd);
-            //Debug.Log(timerAdd);
         }
 
 
@@ -112,11 +111,8 @@ public class Timer : MonoBehaviour
         {
             if (timerAdd >= 0 && timerAdd < 10)
             {
-                Debug.Log("You have cleared the level in: " + timerAdd + " seconds");
                 stars = 3;
                 player.Coins += 100;
-                Debug.Log("You achieved " + stars + "/" + maxStars + " stars and got " + player.Coins + " coins");
-
 
                 levelCleared.SetActive(true);
                 Time.timeScale = 0f;

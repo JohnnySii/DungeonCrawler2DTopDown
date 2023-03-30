@@ -68,13 +68,10 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
                 //Player gains xp when enemy dies
                 player.GainXP();
                 enemySpawner.EnemiesLeft -= 1;
-                Debug.Log("Enemies left: " + enemySpawner.EnemiesLeft);
 
                 if (enemySpawner.EnemiesLeft <= 0)
                 {
-                    //Reward with 0-3 stars
                     player.LevelCleared = true;
-                    Debug.Log("You have cleared the level");
 
                 }
                 
